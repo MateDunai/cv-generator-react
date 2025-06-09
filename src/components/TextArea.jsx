@@ -2,7 +2,7 @@ export default function TextArea({ label, htmlFor, id, name, placeholder, value,
     return (
         <div className="flex flex-col">
             <label htmlFor={htmlFor}>{label}</label>
-            <textarea className="rounded-md bg-gray-200 p-1 text-left" id={id} name={name} placeholder={placeholder} value={value} onChange={onChange}></textarea>
+            <textarea className="bg-[#F2F2F2] rounded-md p-2" id={id} name={name} placeholder={placeholder} value={value} onChange={onChange}></textarea>
         </div>
     )
 }

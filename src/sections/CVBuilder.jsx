@@ -2,38 +2,42 @@ import { useState } from "react";
 import GeneralInfoForm from "./GeneralInfoForm";
 import EducationalExperience from "./EducationalExperience";
 import PracticalExperience from "./PracticalExperience";
-import CvPreview from "./CvPreview";
+import Button from "../components/Button";
+import CvPreview from "./CVPreview";
 import { v4 as uuidv4 } from 'uuid';
 
+const INITIAL_GENERAL_INFO = {
+    fullName: '',
+    email: '',
+    phoneNumber: '',
+    description: '',
+    linkedInLink: ''
+};
+
+const INITIAL_EDU_EXPERIENCE = [{
+    id: uuidv4(),
+    school: '',
+    location: '',
+    startDate: '',
+    endDate: '',
+    degree: ''
+}]
+
+const INITIAL_PRACTICAL_EXPERIENCE = [{
+    id: uuidv4(),
+    position: '',
+    company: '',
+    location: '',
+    startDate: '',
+    endDate: '',
+    description: ''
+}];
+
+
 export default function CvBuilder() {
-    const [GeneralInfo, setGeneralInfo] = useState({
-        fullName: '',
-        email: '',
-        phoneNumber: '',
-        description: '',
-        linkedInLink: ''
-    });
-    const [EduExperience, setEduExperience] = useState([
-    {
-        id: uuidv4(),
-        school: '',
-        location: '',
-        startDate: '',
-        endDate: '',
-        degree: ''
-        }]);
-    
-    const [PractExperience, setPractExperience] = useState([
-    {
-        id: uuidv4(),
-        position: '',
-        company: '',
-        location: '',
-        startDate: '',
-        endDate: '',
-        description: ''
-    }
-    ])
+    const [GeneralInfo, setGeneralInfo] = useState(INITIAL_GENERAL_INFO);
+    const [EduExperience, setEduExperience] = useState(INITIAL_EDU_EXPERIENCE);
+    const [PractExperience, setPractExperience] = useState(INITIAL_PRACTICAL_EXPERIENCE)
 
     function handleGeneralInfoChange(e) {
         const { name, value } = e.target; 
@@ -99,14 +103,55 @@ export default function CvBuilder() {
         setPractExperience(prevExperiences => prevExperiences.filter(experience => experience.id !== id))
     }
 
+    function handleclearAll() {
+        setGeneralInfo(INITIAL_GENERAL_INFO);
+        setEduExperience(INITIAL_EDU_EXPERIENCE);
+        setPractExperience(INITIAL_PRACTICAL_EXPERIENCE)
+    }
+
+    function handleLoadExample() {
+        setGeneralInfo({
+            fullName: 'Máté Dunai',
+            email: 'dunai.mate@gmail.com',
+            phoneNumber: '+36111111111',
+            description: "International Business student passionate about web development and AI applications. Completed Harvard’s CS50 course and currently learning React and full-stack development. Basic familiarity with ERP systems through logistics studies. Fast learner, highly motivated, and eager to grow in an entry-level or internship role focused on tech and AI-driven solutions.",
+            linkedInLink: 'https://www.linkedin.com/in/matedunai/'
+        })
+        setEduExperience([{
+            id: uuidv4(),
+            school: 'Budapest Business University',
+            location: 'Budapest',
+            startDate: '2022',
+            endDate: '2026',
+            degree: 'BsC'
+        }])
+        setPractExperience([{
+            id: uuidv4(),
+            position: 'Web developer',
+            company: 'Apple',
+            location: 'California',
+            startDate: '2026',
+            endDate: 'Present',
+            description: 'Just a basic job'
+        }])
+    }
+
     return (
-        <main className="flex flex-row">
-            <div className="w-2/5 m-3">
+        <main className="main-container flex flex-row">
+            <div className="flex flex-col w-2/5 gap-4">
+                <div className="container flex flex-row">
+                    <Button className="flex-1/2" onClick={handleclearAll}>
+                        Clear All
+                    </Button>
+                    <Button className="flex-1/2" onClick={handleLoadExample}>
+                        Load Example
+                    </Button>
+                </div>
                 <GeneralInfoForm generalInfo={GeneralInfo} onChange={handleGeneralInfoChange} />
                 <EducationalExperience eduExperiences={EduExperience} onChange={handleEduExperienceChange} onAdd={addEducationalExperience} onDelete={deleteEducationalExperience} />
                 <PracticalExperience practicalExperiences={PractExperience} onChange={handlePracticalExperienceChange} onAdd={addPracticalExperience} onDelete={deletePracticalExperience} />
             </div>
-            <CvPreview className="w-3/5" generalInfo={GeneralInfo} eduExperiences={EduExperience} practicalExperiences={PractExperience} />
+            <CvPreview generalInfo={GeneralInfo} eduExperiences={EduExperience} practicalExperiences={PractExperience} />
         </main>
     )
 }

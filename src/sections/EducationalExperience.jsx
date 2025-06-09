@@ -1,12 +1,12 @@
-import AddButton from "../components/AddButton";
+import Button from "../components/Button";
 import Input from "../components/InputField";
 
 export default function EducationalExperience({ eduExperiences, onChange, onAdd, onDelete }) {
     return (
-        <section id="EducationalExperience" className='bg-white p-4 rounded-lg mb-6 flex flex-col items-center'>
-            <h2 className="text-3xl wrap-break-word font-bold">Educational Experience</h2> 
+        <section className="container">
+            <h2>Educational Experience</h2> 
             {eduExperiences.map((edu, index) => (
-                <div key={edu.id} className="educational-entry"> 
+                <div key={edu.id}> 
                     <h3>{edu.school}</h3> 
                     <Input
                         label="University Name"
@@ -31,7 +31,7 @@ export default function EducationalExperience({ eduExperiences, onChange, onAdd,
                     <Input
                         label="Start Date"
                         htmlFor={`startDate-${edu.id}`}
-                        type="date"
+                        type="text"
                         placeholder="MM/YYYY"
                         name="startDate"
                         value={edu.startDate}
@@ -41,7 +41,7 @@ export default function EducationalExperience({ eduExperiences, onChange, onAdd,
                     <Input
                         label="End Date"
                         htmlFor={`endDate-${edu.id}`}
-                        type="date"
+                        type="text"
                         placeholder="MM/YYYY or Present"
                         name="endDate"
                         value={edu.endDate}
@@ -60,13 +60,14 @@ export default function EducationalExperience({ eduExperiences, onChange, onAdd,
                     />
                     
                     {eduExperiences.length > 1 && (
-                        <button type="button" onClick={() => onDelete(edu.id)}>Delete</button>
+                        <Button className="bg-red-500!" type="button" onClick={() => onDelete(edu.id)}>Delete</Button>
                     )}
                     <hr />
                 </div>
             ))}
-            
-            <AddButton onClick={onAdd} /> 
+            <Button onClick={onAdd}>
+                + Add New
+            </Button>
         </section>
     );
 }

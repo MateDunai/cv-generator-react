@@ -1,13 +1,13 @@
-import AddButton from "../components/AddButton"
+import Button from "../components/Button"
 import Input from "../components/InputField"
 import TextArea from "../components/textArea"
 
 export default function PracticalExperience({practicalExperiences, onChange, onAdd, onDelete}) {
     return (
-        <section id="PracticalExperience" className='bg-white p-4 rounded-lg mb-6 flex flex-col items-center'>
-            <h2 className="text-3xl wrap-break-word font-bold">Practial Experience</h2>
+        <section className="container">
+            <h2>Practial Experience</h2>
             {practicalExperiences.map((practical, index) => (
-                <div key={practical.id} className="practical-entry">
+                <div key={practical.id}>
                     <h3>{practical.company}</h3>
                     <Input
                         label="Company Name"
@@ -42,7 +42,7 @@ export default function PracticalExperience({practicalExperiences, onChange, onA
                     <Input
                         label="Start Date"
                         htmlFor={`startDate-${practical.id}`}
-                        type="date"
+                        type="text"
                         placeholder="MM/YYYY"
                         name="startDate"
                         value={practical.startDate}
@@ -52,7 +52,7 @@ export default function PracticalExperience({practicalExperiences, onChange, onA
                     <Input
                         label="End Date"
                         htmlFor={`endDate-${practical.id}`}
-                        type="date"
+                        type="text"
                         placeholder="MM/YYYY or Present"
                         name="endDate"
                         value={practical.endDate}
@@ -70,13 +70,15 @@ export default function PracticalExperience({practicalExperiences, onChange, onA
                     />
 
                     {practicalExperiences.length > 1 && (
-                        <button type="button" onClick={() => onDelete(practical.id)}>Delete</button>
+                        <Button className="bg-red-500!" onClick={() => onDelete(practical.id)}>Delete</Button>
                     )}
                     <hr />
                 </div>
             ))}
 
-            <AddButton onClick={onAdd} />
+            <Button onClick={onAdd}>
+                + Add New
+            </Button>
         </section>
     );
 }
