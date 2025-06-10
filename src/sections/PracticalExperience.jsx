@@ -9,7 +9,7 @@ export default function PracticalExperience({ practicalExperiences, onChange, on
             {practicalExperiences.map((practical, index) => (
                 <div key={practical.id}>
                     {practicalExperiences.length > 1 && <h3>Experience #{index + 1}</h3>}
-                     <Input
+                    <Input
                         label="Position Title"
                         htmlFor={`position-${practical.id}`}
                         type="text"
@@ -72,7 +72,7 @@ export default function PracticalExperience({ practicalExperiences, onChange, on
                     {practicalExperiences.length > 1 && (
                         <Button className="bg-red-600 hover:bg-red-700 w-auto px-4 py-1 text-sm" onClick={() => onDelete(practical.id)}>Delete</Button>
                     )}
-                     {index < practicalExperiences.length -1 && <hr />}
+                        {index < practicalExperiences.length -1 && <hr />}
                 </div>
             ))}
 

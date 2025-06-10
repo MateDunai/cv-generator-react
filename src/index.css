@@ -10,7 +10,7 @@
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #F8FAFC; /* Light gray background for the page */
+    background-color: #F8FAFC; 
   }
 
   h2 {
@@ -44,7 +44,7 @@
   }
 
   .a4-container {
-    @apply bg-white p-8 lg:p-12 shadow-lg max-w-4xl mx-auto min-h-[29.7cm]; /* A4-like aspect */
+    @apply bg-white p-8 lg:p-12 shadow-lg max-w-4xl mx-auto min-h-[29.7cm]; 
     color: #1E293B;
   }
 
