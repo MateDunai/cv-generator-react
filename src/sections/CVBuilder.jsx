@@ -35,21 +35,21 @@ const INITIAL_PRACTICAL_EXPERIENCE = [{
 
 
 export default function CvBuilder() {
-    const [GeneralInfo, setGeneralInfo] = useState(INITIAL_GENERAL_INFO);
-    const [EduExperience, setEduExperience] = useState(INITIAL_EDU_EXPERIENCE);
-    const [PractExperience, setPractExperience] = useState(INITIAL_PRACTICAL_EXPERIENCE)
+    const [generalInfo, setGeneralInfo] = useState(INITIAL_GENERAL_INFO);
+    const [eduExperiences, setEduExperiences] = useState(INITIAL_EDU_EXPERIENCE);
+    const [practExperiences, setPractExperiences] = useState(INITIAL_PRACTICAL_EXPERIENCE);
 
     function handleGeneralInfoChange(e) {
-        const { name, value } = e.target; 
+        const { name, value } = e.target;
         setGeneralInfo(prevFormData => ({
-            ...prevFormData, 
-            [name]: value     
+            ...prevFormData,
+            [name]: value
         }));
     }
-    
-    function handleEduExperienceChange(e ,id) {
+
+    function handleEduExperienceChange(e, id) {
         const { name, value } = e.target;
-        setEduExperience(prevExperiences => {
+        setEduExperiences(prevExperiences => {
             return prevExperiences.map(experience => {
                 if (experience.id === id) {
                     return { ...experience, [name]: value };
@@ -60,7 +60,7 @@ export default function CvBuilder() {
     };
 
     function addEducationalExperience() {
-        setEduExperience(prevExperiences => [...prevExperiences, {
+        setEduExperiences(prevExperiences => [...prevExperiences, {
             id: uuidv4(),
             school: '',
             location: '',
@@ -71,13 +71,13 @@ export default function CvBuilder() {
     }
 
     function deleteEducationalExperience(id) {
-        setEduExperience(prevExperiences => prevExperiences.filter(experience => experience.id !== id)
+        setEduExperiences(prevExperiences => prevExperiences.filter(experience => experience.id !== id)
         );
     }
 
     function handlePracticalExperienceChange(e, id) {
         const { name, value } = e.target;
-        setPractExperience(prevExperiences => {
+        setPractExperiences(prevExperiences => {
             return prevExperiences.map(experience => {
                 if (experience.id === id) {
                     return { ...experience, [name]: value };
@@ -88,7 +88,7 @@ export default function CvBuilder() {
     }
 
     function addPracticalExperience() {
-        setPractExperience(prevExperiences => [...prevExperiences, {
+        setPractExperiences(prevExperiences => [...prevExperiences, {
             id: uuidv4(),
             position: '',
             company: '',
@@ -100,58 +100,60 @@ export default function CvBuilder() {
     }
 
     function deletePracticalExperience(id) {
-        setPractExperience(prevExperiences => prevExperiences.filter(experience => experience.id !== id))
+        setPractExperiences(prevExperiences => prevExperiences.filter(experience => experience.id !== id))
     }
 
-    function handleclearAll() {
+    function handleClearAll() {
         setGeneralInfo(INITIAL_GENERAL_INFO);
-        setEduExperience(INITIAL_EDU_EXPERIENCE);
-        setPractExperience(INITIAL_PRACTICAL_EXPERIENCE)
+        setEduExperiences(INITIAL_EDU_EXPERIENCE);
+        setPractExperiences(INITIAL_PRACTICAL_EXPERIENCE);
     }
 
     function handleLoadExample() {
         setGeneralInfo({
             fullName: 'Máté Dunai',
-            email: 'dunai.mate@gmail.com',
-            phoneNumber: '+36111111111',
+            email: 'cvmail@gmail.com',
+            phoneNumber: '+36 11 111 1111',
             description: "International Business student passionate about web development and AI applications. Completed Harvard’s CS50 course and currently learning React and full-stack development. Basic familiarity with ERP systems through logistics studies. Fast learner, highly motivated, and eager to grow in an entry-level or internship role focused on tech and AI-driven solutions.",
-            linkedInLink: 'https://www.linkedin.com/in/matedunai/'
+            linkedInLink: 'linkedin.com/in/matedunai'
         })
-        setEduExperience([{
+        setEduExperiences([{
             id: uuidv4(),
             school: 'Budapest Business University',
-            location: 'Budapest',
+            location: 'Budapest, Hungary',
             startDate: '2022',
             endDate: '2026',
-            degree: 'BsC'
+            degree: 'BSc in International Business'
         }])
-        setPractExperience([{
+        setPractExperiences([{
             id: uuidv4(),
-            position: 'Web developer',
-            company: 'Apple',
-            location: 'California',
-            startDate: '2026',
+            position: 'Web Developer Intern',
+            company: 'Tech Solutions Inc.',
+            location: 'Budapest, Hungary',
+            startDate: 'Jun 2024',
             endDate: 'Present',
-            description: 'Just a basic job'
+            description: 'Assisted the development team in building and maintaining client websites using React and Node.js. Collaborated on debugging and feature implementation.'
         }])
     }
 
     return (
-        <main className="main-container flex flex-row">
-            <div className="flex flex-col w-2/5 gap-4">
-                <div className="container flex flex-row">
-                    <Button className="flex-1/2" onClick={handleclearAll}>
+        <main className="main-container">
+            <div className="cv-forms-column">
+                <div className="button-group">
+                    <Button className="bg-red-600 hover:bg-red-700" onClick={handleClearAll}>
                         Clear All
                     </Button>
-                    <Button className="flex-1/2" onClick={handleLoadExample}>
+                    <Button className="bg-[#0E7490] hover:bg-cyan-700" onClick={handleLoadExample}>
                         Load Example
                     </Button>
                 </div>
-                <GeneralInfoForm generalInfo={GeneralInfo} onChange={handleGeneralInfoChange} />
-                <EducationalExperience eduExperiences={EduExperience} onChange={handleEduExperienceChange} onAdd={addEducationalExperience} onDelete={deleteEducationalExperience} />
-                <PracticalExperience practicalExperiences={PractExperience} onChange={handlePracticalExperienceChange} onAdd={addPracticalExperience} onDelete={deletePracticalExperience} />
+                <GeneralInfoForm generalInfo={generalInfo} onChange={handleGeneralInfoChange} />
+                <EducationalExperience eduExperiences={eduExperiences} onChange={handleEduExperienceChange} onAdd={addEducationalExperience} onDelete={deleteEducationalExperience} />
+                <PracticalExperience practicalExperiences={practExperiences} onChange={handlePracticalExperienceChange} onAdd={addPracticalExperience} onDelete={deletePracticalExperience} />
             </div>
-            <CvPreview generalInfo={GeneralInfo} eduExperiences={EduExperience} practicalExperiences={PractExperience} />
+            <div className="cv-preview-column">
+                <CvPreview generalInfo={generalInfo} eduExperiences={eduExperiences} practicalExperiences={practExperiences} />
+            </div>
         </main>
     )
 }

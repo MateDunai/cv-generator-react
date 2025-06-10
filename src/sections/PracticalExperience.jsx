@@ -1,14 +1,24 @@
-import Button from "../components/Button"
-import Input from "../components/InputField"
-import TextArea from "../components/textArea"
+import Button from "../components/Button";
+import Input from "../components/InputField";
+import TextArea from "../components/TextArea";
 
-export default function PracticalExperience({practicalExperiences, onChange, onAdd, onDelete}) {
+export default function PracticalExperience({ practicalExperiences, onChange, onAdd, onDelete }) {
     return (
-        <section className="container">
-            <h2>Practial Experience</h2>
+        <section className="form-section">
+            <h2>Practical Experience</h2>
             {practicalExperiences.map((practical, index) => (
                 <div key={practical.id}>
-                    <h3>{practical.company}</h3>
+                    {practicalExperiences.length > 1 && <h3>Experience #{index + 1}</h3>}
+                     <Input
+                        label="Position Title"
+                        htmlFor={`position-${practical.id}`}
+                        type="text"
+                        placeholder="e.g., Software Engineer"
+                        name="position"
+                        value={practical.position}
+                        onChange={(e) => onChange(e, practical.id)}
+                        id={`position-${practical.id}`}
+                    />
                     <Input
                         label="Company Name"
                         htmlFor={`company-${practical.id}`}
@@ -20,20 +30,10 @@ export default function PracticalExperience({practicalExperiences, onChange, onA
                         id={`company-${practical.id}`}
                     />
                     <Input
-                        label="Position Title"
-                        htmlFor={`position-${practical.id}`}
-                        type="text"
-                        placeholder="Enter Position Title"
-                        name="position"
-                        value={practical.position}
-                        onChange={(e) => onChange(e, practical.id)}
-                        id={`position-${practical.id}`}
-                    />
-                    <Input
                         label="Location"
                         htmlFor={`location-${practical.id}`}
                         type="text"
-                        placeholder="Enter Location"
+                        placeholder="City, Country"
                         name="location"
                         value={practical.location}
                         onChange={(e) => onChange(e, practical.id)}
@@ -62,7 +62,7 @@ export default function PracticalExperience({practicalExperiences, onChange, onA
                     <TextArea
                         label="Description"
                         htmlFor={`description-${practical.id}`}
-                        placeholder="Enter Description"
+                        placeholder="Briefly describe your responsibilities and achievements."
                         name="description"
                         value={practical.description}
                         onChange={(e) => onChange(e, practical.id)}
@@ -70,14 +70,14 @@ export default function PracticalExperience({practicalExperiences, onChange, onA
                     />
 
                     {practicalExperiences.length > 1 && (
-                        <Button className="bg-red-500!" onClick={() => onDelete(practical.id)}>Delete</Button>
+                        <Button className="bg-red-600 hover:bg-red-700 w-auto px-4 py-1 text-sm" onClick={() => onDelete(practical.id)}>Delete</Button>
                     )}
-                    <hr />
+                     {index < practicalExperiences.length -1 && <hr />}
                 </div>
             ))}
 
-            <Button onClick={onAdd}>
-                + Add New
+            <Button className="mt-4 bg-green-600 hover:bg-green-700" onClick={onAdd}>
+                + Add New Experience
             </Button>
         </section>
     );
